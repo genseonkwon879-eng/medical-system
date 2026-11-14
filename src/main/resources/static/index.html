@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>科室管理 · 医疗管理系统</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/departments.css?v=2">
+  <script src="/assets/departments.js?v=2" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="医疗管理系统首页"><span class="brand-mark" aria-hidden="true">✚</span><span><strong>医疗管理系统</strong><small>MEDICAL SYSTEM</small></span></a>
+    <p class="nav-label">工作空间</p>
+    <nav aria-label="主导航"><a class="nav-link active" href="#departments" aria-current="page"><span aria-hidden="true">▦</span>科室管理<span class="nav-dot"></span></a><a class="nav-link" href="#diagnostics"><span aria-hidden="true">⌘</span>接口验证</a></nav>
+    <div class="sidebar-note"><span class="note-dot"></span><div>从基础资料开始<small>维护科室，为医生和预约管理<br>建立清晰的业务基础。</small></div></div>
+    <div class="sidebar-footer"><span class="avatar">医</span><div>本地教学环境<small>科室管理实验</small></div></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div><span class="breadcrumb-muted">基础资料</span><span class="slash">/</span>科室管理</div><span class="environment"><span></span>本地运行</span></header>
+    <main id="departments">
+      <div class="page-heading"><div><p class="eyebrow">DEPARTMENT MANAGEMENT</p><h1>科室管理</h1><p class="subtitle">维护科室基本信息，让每一项服务都有清晰的归属。</p></div><button class="button primary" id="create-button" type="button" disabled><span aria-hidden="true">＋</span>新增科室</button></div>
+      <section class="metrics" aria-label="科室概览">
+        <article class="metric"><div class="metric-icon" aria-hidden="true">▦</div><div><p>科室总数</p><strong id="total-count">—</strong><span class="metric-unit">个</span></div></article>
+        <article class="metric"><div class="metric-icon connection-icon" aria-hidden="true">↔</div><div><p>数据库状态</p><strong class="metric-text" id="database-status">检查中</strong><span class="metric-caption" id="database-caption">正在连接 MySQL</span></div></article>
+        <article class="metric"><div class="metric-icon clock-icon" aria-hidden="true">◷</div><div><p>最近刷新</p><strong class="metric-text time-text" id="refresh-time">—</strong><span class="metric-caption">以本次查询结果为准</span></div></article>
+      </section>
+      <section class="list-card" aria-labelledby="list-title">
+        <div class="list-header"><div><h2 id="list-title">科室列表 <span id="list-count">0</span></h2><p>查看、维护科室编码、名称与简介。</p></div><button class="button secondary" id="refresh-button" type="button"><span aria-hidden="true">↻</span>刷新列表</button></div>
+        <div class="toolbar"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" maxlength="64" placeholder="搜索科室名称或编码" aria-label="搜索科室名称或编码"></label><span id="result-count" class="result-count">正在加载科室</span></div>
+        <div id="load-error" class="error-banner" role="alert" hidden></div>
+        <div class="table-scroll"><table><caption class="sr-only">科室基本信息与管理操作</caption><thead><tr><th scope="col" class="row-number">序号</th><th scope="col">科室名称</th><th scope="col">科室编码</th><th scope="col">科室简介</th><th scope="col" class="actions-heading">操作</th></tr></thead><tbody id="department-rows"><tr><td colspan="5" class="empty-cell">正在加载科室…</td></tr></tbody></table></div>
+        <div class="list-footer"><span><span class="tiny-dot"></span>编码唯一 · 关联医生的科室受到删除保护</span><span>共 <b id="footer-count">0</b> 个科室</span></div>
+      </section>
+      <details class="diagnostics" id="diagnostics"><summary>实验接口与验证入口 <span>保留基础环境验收功能</span></summary><div class="diagnostic-links"><a href="/api/hello" target="_blank" rel="noopener">Hello World 与中文测试 ↗</a><a href="/api/system/info" target="_blank" rel="noopener">项目信息 ↗</a><a href="/api/system/database" target="_blank" rel="noopener">数据库连通检查 ↗</a><a href="/api/departments" target="_blank" rel="noopener">科室 JSON 接口 ↗</a></div></details>
+      <footer class="page-footer"><span>医疗管理系统 · 基础资料管理</span><span>患者、医生与预约功能将在后续实验开发</span></footer>
+    </main>
+  </div>
+  <dialog id="department-dialog" aria-labelledby="dialog-title">
+    <form id="department-form">
+      <div class="dialog-heading"><div><p class="eyebrow">DEPARTMENT</p><h2 id="dialog-title">新增科室</h2></div><button class="icon-button" type="button" id="close-form" aria-label="关闭科室表单">×</button></div>
+      <p class="dialog-description">填写科室基本信息，带 <span class="required">*</span> 的项目为必填项。</p>
+      <label class="form-field" for="department-name">科室名称 <span class="required">*</span><input id="department-name" name="name" required maxlength="64" placeholder="例如：心内科" autocomplete="off"></label>
+      <label class="form-field" for="department-code">科室编码 <span class="required">*</span><input id="department-code" name="code" required maxlength="32" pattern="[A-Za-z][A-Za-z0-9_]{0,31}" placeholder="例如：CARDIOLOGY" autocomplete="off" aria-describedby="code-hint"><small id="code-hint">以字母开头，可包含字母、数字和下划线，保存时统一为大写。</small></label>
+      <label class="form-field" for="department-description">科室简介<textarea id="department-description" name="description" maxlength="255" rows="3" placeholder="简要介绍科室服务（选填，最多255个字符）"></textarea></label>
+      <p id="form-error" class="inline-error" role="alert" hidden></p>
+      <div class="dialog-footer"><button class="button secondary" id="cancel-form" type="button">取消</button><button class="button primary" id="save-button" type="submit">保存科室</button></div>
+    </form>
+  </dialog>
+  <dialog id="delete-dialog" aria-labelledby="delete-title">
+    <div class="delete-symbol" aria-hidden="true">!</div><h2 id="delete-title">确认删除科室？</h2><p id="delete-description" class="delete-description"></p><p class="delete-hint">删除后无法恢复。已关联医生的科室不能删除。</p><p id="delete-error" class="inline-error" role="alert" hidden></p>
+    <div class="dialog-footer"><button class="button secondary" id="cancel-delete" type="button">取消</button><button class="button danger" id="confirm-delete" type="button">确认删除</button></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

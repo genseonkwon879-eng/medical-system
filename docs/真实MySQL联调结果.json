@@ -1,0 +1,54 @@
+{
+  "connection": "localhost:3306",
+  "httpVerification": {
+    "mode": "mysql",
+    "port": 18082,
+    "database": {
+      "code": 0,
+      "message": "success",
+      "data": {
+        "connected": true,
+        "database": "MySQL"
+      }
+    },
+    "departments": {
+      "code": 0,
+      "message": "success",
+      "data": [
+        {
+          "id": 1,
+          "code": "INTERNAL",
+          "name": "内科",
+          "description": "教学演示科室"
+        },
+        {
+          "id": 2,
+          "code": "SURGERY",
+          "name": "外科",
+          "description": "教学演示科室"
+        },
+        {
+          "id": 3,
+          "code": "PEDIATRICS",
+          "name": "儿科",
+          "description": "教学演示科室"
+        }
+      ]
+    },
+    "hello": {
+      "code": 0,
+      "message": "success",
+      "data": "医疗系统 Hello World！"
+    },
+    "existingDemoStillAvailable": true,
+    "result": "PASS"
+  },
+  "schemaVerification": {
+    "result": "PASS",
+    "serverVersion": "8.0.45",
+    "database": "medical_system",
+    "tableCount": 4,
+    "encoding": "utf8mb4",
+    "applicationPrivilegeScope": "DML on the four project tables only"
+  }
+}

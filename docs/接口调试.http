@@ -1,0 +1,38 @@
+### 在 IDEA HTTP Client 中使用；如未提供该功能，直接用浏览器访问。
+@baseUrl = http://localhost:18082
+
+### Hello World：HTTP 200，中文正常
+GET {{baseUrl}}/api/hello
+Accept: application/json
+
+### 项目信息：HTTP 200
+GET {{baseUrl}}/api/system/info
+Accept: application/json
+
+### 仅 mysql 模式：HTTP 200 且 connected=true 才算数据库连通
+GET {{baseUrl}}/api/system/database
+Accept: application/json
+
+### 仅 mysql 模式：需先执行 SQL，预期 3 个演示科室
+GET {{baseUrl}}/api/departments
+Accept: application/json
+
+### 新增专用演练科室。已存在时会返回409，请勿反复创建重复数据。
+POST {{baseUrl}}/api/departments
+Content-Type: application/json
+
+{"code":"LAB_HTTP_DEMO","name":"接口演练科室","description":"仅供实验，结束后删除本条"}
+
+### 将下方ID替换为上一步返回的新ID，禁止直接使用原有科室ID。
+@createdDepartmentId = 9223372036854775807
+
+GET {{baseUrl}}/api/departments/{{createdDepartmentId}}
+
+###
+PUT {{baseUrl}}/api/departments/{{createdDepartmentId}}
+Content-Type: application/json
+
+{"code":"LAB_HTTP_DEMO","name":"接口演练科室（修改）","description":"已修改"}
+
+### 仅删除本人刚刚创建的演练记录
+DELETE {{baseUrl}}/api/departments/{{createdDepartmentId}}

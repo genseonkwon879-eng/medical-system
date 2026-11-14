@@ -1,0 +1,5 @@
+# 先验收 Web 和中文编码。MySQL 连通性必须单独在 mysql 模式验证。
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration

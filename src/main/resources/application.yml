@@ -1,0 +1,22 @@
+server:
+  address: 127.0.0.1
+  port: ${SERVER_PORT:8080}
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  application:
+    name: medical-system
+  profiles:
+    default: demo
+  sql:
+    init:
+      mode: never
+
+logging:
+  charset:
+    console: UTF-8
+    file: UTF-8

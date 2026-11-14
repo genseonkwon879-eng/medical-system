@@ -1,0 +1,26 @@
+{
+  "backendTests": {
+    "total": 10,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "realMySqlTests": 5
+  },
+  "pageScriptTests": {
+    "result": "PASS",
+    "method": "Node DOM execution of actual page JS with real HTTP/MySQL; not a rendered browser test",
+    "checks": [
+      "页面加载真实列表与数据库状态",
+      "名称编码搜索和无匹配状态",
+      "页面新增与 MySQL 持久化",
+      "重复编码提示且保留表单",
+      "页面编辑和纯文本输出处理",
+      "删除确认、取消与实际删除",
+      "网络错误提示与刷新恢复",
+      "原有科室保持不变，测试数据已清理"
+    ]
+  },
+  "browserVisualCheck": "未完成：本机权限限制，未进行真实浏览器自动化截图检查",
+  "deployedUrl": "http://localhost:18082/",
+  "existingData": "原有3条科室记录保持不变；测试记录已回滚或清理"
+}

@@ -1,0 +1,94 @@
+erDiagram
+    DEPARTMENT ||--o{ DOCTOR : contains
+    DOCTOR ||--o{ DOCTOR_SCHEDULE : schedules
+    DOCTOR ||--o{ APPOINTMENT : receives
+    PATIENT ||--o{ APPOINTMENT : books
+    DOCTOR_SCHEDULE o|--o{ APPOINTMENT : assigns
+    APPOINTMENT ||--o| PRESCRIPTION : produces
+    PRESCRIPTION ||--o{ PRESCRIPTION_ITEM : contains
+    MEDICINE ||--o{ PRESCRIPTION_ITEM : prescribed
+    MEDICINE ||--o| MEDICINE_INVENTORY : stocks
+    MEDICINE_INVENTORY ||--o{ INVENTORY_MOVEMENT : records
+    DEPARTMENT {
+        bigint id PK
+        varchar code UK
+        varchar name
+    }
+    DOCTOR {
+        bigint id PK
+        bigint department_id FK
+        varchar doctor_no UK
+        varchar name
+        varchar title
+        varchar phone
+    }
+    PATIENT {
+        bigint id PK
+        varchar name
+        varchar identity_card UK
+        date birth_date
+        varchar phone
+    }
+    DOCTOR_SCHEDULE {
+        bigint id PK
+        bigint doctor_id FK
+        date work_date
+        varchar time_slot
+        time start_time
+        time end_time
+        int total_capacity
+        int remaining_capacity
+        varchar status
+        int version
+    }
+    APPOINTMENT {
+        bigint id PK
+        varchar appointment_no UK
+        bigint patient_id FK
+        bigint doctor_id FK
+        bigint schedule_id FK
+        bigint active_schedule_id "generated"
+        datetime appointment_time
+        varchar status
+    }
+    PRESCRIPTION {
+        bigint id PK
+        varchar prescription_no UK
+        bigint appointment_id FK,UK
+        varchar diagnosis
+        varchar status
+        datetime issued_at
+    }
+    PRESCRIPTION_ITEM {
+        bigint id PK
+        bigint prescription_id FK
+        smallint line_no
+        bigint medicine_id FK
+        int quantity
+        decimal unit_price
+        varchar instructions
+    }
+    MEDICINE {
+        bigint id PK
+        varchar code UK
+        varchar name
+        varchar specification
+        varchar unit
+        decimal unit_price
+        tinyint enabled
+    }
+    MEDICINE_INVENTORY {
+        bigint medicine_id PK,FK
+        int stock_quantity
+        int warning_quantity
+        int version
+    }
+    INVENTORY_MOVEMENT {
+        bigint id PK
+        varchar business_key UK
+        bigint medicine_id FK
+        int change_quantity
+        int balance_after
+        varchar reason
+        varchar reference_no
+    }
